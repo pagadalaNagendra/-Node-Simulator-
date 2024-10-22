@@ -1,0 +1,118 @@
+.bulk-import-container {
+    padding: 20px;
+    background-color: #f3f5f9;
+  }
+  
+  .header-section {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .header-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .download-btn,
+  .import-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .dropdown-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .custom-dropdown {
+    width: 100%;
+  }
+  
+  .dropdown-button {
+    width: 100%;
+    padding: 6px;
+    font-size: 18px;
+    margin-top: 10px;
+    text-align: left;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+    color: black;
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color:white;
+    border: 1px solid #ccc;
+    z-index: 10;
+  }
+  .dropdown-input-field{
+    color: black;
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdown-footer {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
+  
+  .vertical-input {
+    width: 80%;
+    padding: 10px;
+    /* color: black; */
+  }
+  
+  .add-btn {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .sensor-dropdown {
+    width: 100%;
+    padding: 6px;
+    font-size: 18px;
+    margin-top: 4px;
+  }
+  
+  .input-wrapper {
+    width: 100%;
+  }
+  
+  .text-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  

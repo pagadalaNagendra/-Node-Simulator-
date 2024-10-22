@@ -1,0 +1,66 @@
+/* Add styles for the streaming data container */
+
+.streaming-data{
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+pre {
+  width: 100%; /* Set the desired width */
+  max-width: 600px; /* Adjust this value as needed */
+  background-color: #333;
+  color: #fff;
+  margin-left: -20px;
+  padding: 25px;
+  border-radius: 5px;
+  height: 380px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto;
+  font-size: 14px;
+  white-space: pre-wrap; /* Wrap text within the element */
+  word-wrap: break-word; /* Break long words to fit */
+}
+
+/* Add styles for the download button */
+.download-button {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: -120pxpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between text and icon */
+}
+
+/* Style the button text */
+.button-text {
+  margin: -10px; /* Reset margin */
+  font-size: 16px;
+  position: fixed;
+  margin-top: -840px;
+  margin-left: -60px;
+  background-color: #007BFF;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 24%;
+  padding: 5px 10px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Add some spacing between the text and the icon */
+.download-icon {
+  font-size: 24px;
+  position: fixed;
+  margin-top: -840px;
+  right: 20px;
+}
+
+.download-button:hover {
+  background-color: #0056b3;
+}

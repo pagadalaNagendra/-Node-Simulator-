@@ -1,0 +1,39 @@
+/* Historystatus.css */
+.historystatus-homepage {
+    padding: 20px;
+  }
+  
+  .historystatus-content {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  
+  .historystatus-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .historystatus-table th,
+  .historystatus-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .historystatus-parameters {
+    cursor: pointer; /* Indicate clickable parameter */
+
+  }
+  
+  .historystatus-download-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .historystatus-download-button:hover {
+    background-color: #0056b3;
+  }
+  
