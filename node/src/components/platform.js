@@ -299,7 +299,7 @@ const Platform = () => {
 
             <h2 className="nodeselect">
               <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729232152/radar-removebg-preview_l25o62.png" alt="Range Icon" className="Platform-icon-icon" />
-              Select Nodes by Range
+              Range
             </h2>
             <div className="range-selection">
               <input type="number" name="rangeStart" value={rangeStart} onChange={handleRangeChange} placeholder="From (start)" min="1" />

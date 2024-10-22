@@ -1,151 +1,192 @@
+/* General layout */
 .homepage {
   display: flex;
+  height: 100vh;
+  background-color: #f5f7fa;
 }
+
 
 .left-sidebar {
-  width: 9%;
+  width: 12%;
   padding: 15px;
-  background-color: #FFFFFF;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-.right-sidebar {
-  width: 27%;
-  padding: 20px;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+.nodeselect {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
+/* Platform Icons */
+.Platform-icon-icon,
+.Platform-icon-icons,
+.Platform-icon-iconss {
+  height: 22px;
+  width: 22px;
+}
+
+/* Select Elements Styling */
+.select-spacing {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #123462;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.select-spacing:focus {
+  border-color: #0056b3;
+  outline: none;
+}
+
+/* Range Selection */
 .range-selection {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 15px;
 }
 
 .range-selection input[type="number"] {
-  width: 60px;
-  padding: 3px;
+  width: 70px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .range-selection button {
   padding: 8px 12px;
-}
-
-.rangenodebtn {
-  margin-top: 10px;
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.range-selection button:hover {
+  background-color: #0056b3;
+}
+
+/* Buttons Styling */
+.rangenodebtn,
+.startstopbtn {
+  width: 100%; /* Full width buttons */
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+.rangenodebtn {
+  background-color: #fd7e14;
+}
+
+.rangenodebtn:hover {
+  background-color: #0056b3;
 }
 
 .startstopbtn {
   background-color: #28a745;
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  bottom: 0px;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  margin-top: 260px;
-  transition: background-color 0.3s;
-  justify-content: center;
-  text-align: center;
 }
 
-.startstopbtn:hover,
-.rangenodebtn:hover {
-  background-color: #0056b3;
+.startstopbtn:hover {
+  background-color: #1e7e34;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #ECEEF8;
+  bottom: 150px;
+
+}
+
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Card Layout */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 20px auto;
+  width: 58%; 
+  margin-left :200px;
+ 
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 170px;
+  bottom: 20px;
+}
+
+/* Table Styling */
+.table-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-
-}
-
-.table-container {
-  max-height: 300px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  margin-top: -10px;
-  width: 500px;
-}
-
-
-.node-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #007bff;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.node-select:focus {
-  border-color: #0056b3;
-  outline: none;
-}
-
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px; 
-  /* justify-content: center;  */
-  /* align-items: center;  */
-  margin: 20px auto; 
-  width: 60%; 
-  margin-bottom: 80px;
- margin-left: 200px;
-
-}
-
-.card {
-  border: 1px solid #ddd;
-  padding: 1.25rem; 
-  border-radius: 6px; 
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  max-width: 80%; 
 }
 
+.data-table th,
+.data-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
 
+/* Scrollbar Styling */
 .parameter-list {
   max-height: 150px;
   overflow-y: auto;
-  margin-top: 1rem;
-  padding: 0.5rem;
+  margin-top: 10px;
+  padding: 8px;
   border-radius: 8px;
-}
-
-.main-content {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 0.5rem; /* Reduced padding for overall content */
-  background-color: #f0f0f0;
-  width: 60%;
-}
-
-.node-checkbox {
-  margin-right: 8px;
-}
-
-.node-number {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  display: block;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .parameter-list::-webkit-scrollbar {
@@ -165,54 +206,27 @@
   background: #555;
 }
 
+@media (max-width: 320px) {
 
-
-.main-content::-webkit-scrollbar {
-  width: 8px;
+  .nodeselect {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 15px;
+    /* font-weight: bold; */
+    font-size: 0.5rem;
 }
 
-.main-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.Platform-icon-icon, .Platform-icon-icons, .Platform-icon-iconss {
+  height: 12px;
+  width: 12px;
+}
+.left-sidebar {
+  width: 12%;
+  padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
 }
 
-.main-content::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 10px;
 }
-
-.main-content::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-.Platform-icon-icon{
-  height: 20px;
-  width:20px;
-  margin-top: 10px;
-}
-.Platform-icon-icons{
-  height: 20px;
-  width:20px;
-  margin-top: 10px;
-  margin-left: -50px;
-}
-.Platform-icon-iconss{
-  height: 20px;
-  width:20px;
-  margin-top: 10px;
-  margin-left: -40px;
-}
-
-
-.nodeselect {
-  margin-bottom: 10px; /* Space below each heading */
-}
-
-.select-spacing {
-  margin-bottom: 20px; /* Space below each select element */
-}
-
-.range-selection {
-  margin-bottom: 20px; /* Space below the range input section */
-}
-
-
-

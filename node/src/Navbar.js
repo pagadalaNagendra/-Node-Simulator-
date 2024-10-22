@@ -23,18 +23,17 @@ const Navbar = () => {
       Node Simulator 
       </div>
       <div className="navbar-dropdown">
-        <select onChange={handleNavigation} defaultValue="">
-          <option value="/" disabled>Select Page</option>
-          <option value="/Node-Simultor">Homepage</option>
-          <option value="/Node-Simultor/vertical">Vertical</option>
-          <option value="/Node-Simultor/parameter">Parameter</option>
-          <option value="/Node-Simultor/node">Node</option>
-          <option value="/Node-Simultor/platform">Platforms</option>
-          <option value="/Node-Simultor/Predefinedconfigurations">Predefined Configurations</option>
-          <option value="/Node-Simultor/Historystatus">History</option>
-
-        </select>
-      </div>
+      <select onChange={handleNavigation} defaultValue="">
+        <option value="" disabled>Select Page</option>
+        <option value="/Node-Simultor">Homepage</option>
+        <option value="/Node-Simultor/vertical">Vertical</option>
+        <option value="/Node-Simultor/parameter">Parameter</option>
+        <option value="/Node-Simultor/node">Node</option>
+        <option value="/Node-Simultor/platform">Platforms</option>
+        <option value="/Node-Simultor/Predefinedconfigurations">Predefined Configurations</option>
+        <option value="/Node-Simultor/Historystatus">History</option>
+      </select>
+    </div>    
     </nav>
   );
 }

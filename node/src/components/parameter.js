@@ -89,66 +89,73 @@ const ParameterForm = () => {
 
   return (
     <div className="parameter-form-container">
+      <h2>Parameter</h2>
       <form onSubmit={handleSubmit} className="parameter-form">
-        <div className="form-group">
-          <label htmlFor="vertical" className="form-label">
-            Vertical:
-          </label>
-          <select
-            id="vertical"
-            name="vertical"
-            value={formData.vertical}
-            onChange={handleChange}
-            className="form-select"
-          >
-            <option value="">Select a vertical</option>
-            {verticals.map((vertical) => (
-              <option key={vertical.id} value={vertical.id}>
-                {vertical.name}
-              </option>
-            ))}
-          </select>
+        <div className="form-row">
+          <div className="form-group half-width">
+            <label htmlFor="vertical" className="form-label">
+              Vertical:
+            </label>
+            <select
+              id="vertical"
+              name="vertical"
+              value={formData.vertical}
+              onChange={handleChange}
+              className="form-select"
+            >
+              <option value="">Select a vertical</option>
+              {verticals.map((vertical) => (
+                <option key={vertical.id} value={vertical.id}>
+                  {vertical.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group half-width">
+            <label htmlFor="parameterName" className="form-label">
+              Parameter Name:
+            </label>
+            <input
+              type="text"
+              id="parameterName"
+              name="parameterName"
+              value={formData.parameterName}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="parameterName" className="form-label">
-            Parameter Name:
-          </label>
-          <input
-            type="text"
-            id="parameterName"
-            name="parameterName"
-            value={formData.parameterName}
-            onChange={handleChange}
-            className="form-input"
-          />
+
+        <div className="form-row">
+          <div className="form-group half-width">
+            <label htmlFor="max" className="form-label">
+              Max:
+            </label>
+            <input
+              type="number"
+              id="max"
+              name="max"
+              value={formData.max}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
+          <div className="form-group half-width">
+            <label htmlFor="min" className="form-label">
+              Min:
+            </label>
+            <input
+              type="number"
+              id="min"
+              name="min"
+              value={formData.min}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="max" className="form-label">
-            Max:
-          </label>
-          <input
-            type="number"
-            id="max"
-            name="max"
-            value={formData.max}
-            onChange={handleChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="min" className="form-label">
-            Min:
-          </label>
-          <input
-            type="number"
-            id="min"
-            name="min"
-            value={formData.min}
-            onChange={handleChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
+
+        <div className="form-group datatype-group">
           <label htmlFor="datatype" className="form-label">
             Datatype:
           </label>
@@ -165,6 +172,7 @@ const ParameterForm = () => {
             <option value="date">Date</option>
           </select>
         </div>
+
         <button type="submit" className="form-submit-button">Submit</button>
       </form>
     </div>
@@ -172,6 +180,3 @@ const ParameterForm = () => {
 };
 
 export default ParameterForm;
-
-
-

@@ -44,8 +44,7 @@ const NodeSelector = () => {
       });
   }, []);
 
-
-//these fetch method for nodes count 
+  //these fetch method for nodes count
   useEffect(() => {
     fetch("http://localhost:8000/nodes/?skip=0&limit=1000?skip=0&limit=1000")
       .then((response) => response.json())
@@ -54,18 +53,18 @@ const NodeSelector = () => {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:8000/verticals/')
-      .then(response => {
+    fetch("http://localhost:8000/verticals/")
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch vertical count');
+          throw new Error("Failed to fetch vertical count");
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setVerticalCount(data.length);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         setError(error.message);
         setLoading(false);
       });
@@ -73,49 +72,45 @@ const NodeSelector = () => {
 
   useEffect(() => {
     const fetchPlatforms = async () => {
-        try {
-            const response = await fetch('http://localhost:8000/nodes/?skip=0&limit=1000');            
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            const uniquePlatformsSet = [...new Set(data.map(node => node.platform))];
-            setUniquePlatforms(uniquePlatformsSet);
-            setPlatformCount(uniquePlatformsSet.length);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
+      try {
+        const response = await fetch("http://localhost:8000/nodes/?skip=0&limit=1000");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
+        const data = await response.json();
+        const uniquePlatformsSet = [...new Set(data.map((node) => node.platform))];
+        setUniquePlatforms(uniquePlatformsSet);
+        setPlatformCount(uniquePlatformsSet.length);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchPlatforms();
-}, []); 
+  }, []);
 
-useEffect(() => {
-  const fetchServices = async () => {
+  useEffect(() => {
+    const fetchServices = async () => {
       try {
-          const response = await fetch('http://localhost:8000/nodes/?skip=0&limit=1000');
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          const data = await response.json();
-          const uniqueServicesSet = [...new Set(data
-              .filter(node => node.services === "start")
-              .map(node => node.services))
-          ];
-          setUniqueServices(uniqueServicesSet);
-          setServiceCount(uniqueServicesSet.length);
+        const response = await fetch("http://localhost:8000/nodes/?skip=0&limit=1000");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        const uniqueServicesSet = [...new Set(data.filter((node) => node.services === "start").map((node) => node.services))];
+        setUniqueServices(uniqueServicesSet);
+        setServiceCount(uniqueServicesSet.length);
       } catch (error) {
-          setError(error.message);
+        setError(error.message);
       } finally {
-          setLoading(false);
+        setLoading(false);
       }
-  };
+    };
 
-  fetchServices();
-}, []); 
- 
+    fetchServices();
+  }, []);
 
   // Fetch filtered nodes when selected vertical changes
   useEffect(() => {
@@ -220,7 +215,7 @@ useEffect(() => {
         },
       ];
       console.log(payload);
-      
+
       fetch(`http://127.0.0.1:8000/services/start`, {
         method: "PUT",
         headers: {
@@ -285,7 +280,8 @@ useEffect(() => {
     <div className="homepage">
       <div className="left-sidebar">
         <h1 className="nodeselect">
-          <FontAwesomeIcon icon={faSitemap} /> Select Vertical
+          <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729231943/block-removebg-preview_eeb1wy.png" alt="Range Icon" className="Platform-icon-icon" />
+          Select Vertical
         </h1>
         <select value={selectedVertical} onChange={handleVerticalSelect}>
           <option value="">Select Vertical</option>
@@ -297,7 +293,8 @@ useEffect(() => {
         </select>
 
         <h1 className="nodeselect">
-          <FontAwesomeIcon icon={faNetworkWired} /> Select Node
+          <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729232379/connection-removebg-preview_uhryhg.png" alt="Range Icon" className="Platform-icon-icon" />
+          Select Node
         </h1>
         <select value={selectedNodeId} onChange={handleNodeSelect} disabled={filteredNodes.length === 0}>
           <option value="">Select Node ID</option>
@@ -333,7 +330,11 @@ useEffect(() => {
             </div>
           </div>
           <div className="home-node-item">
-            <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729253184/pngtree-start-button-rounded-futuristic-hologram-png-image_2257337-removebg-preview_o9wcnh.png" alt="Range Icon" className="home-icon-icon" />
+            <img
+              src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729253184/pngtree-start-button-rounded-futuristic-hologram-png-image_2257337-removebg-preview_o9wcnh.png"
+              alt="Range Icon"
+              className="home-icon-icon"
+            />
             <div className="node-details">
               <p className="home-nodecount">{serviceCount}</p>
               <p className="home-nodetitle">Services(start)</p>

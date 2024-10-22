@@ -11,7 +11,6 @@ pre {
   max-width: 600px; /* Adjust this value as needed */
   background-color: #333;
   color: #fff;
-  margin-left: -20px;
   padding: 25px;
   border-radius: 5px;
   height: 380px;
@@ -39,15 +38,14 @@ pre {
 
 /* Style the button text */
 .button-text {
-  margin: -10px; /* Reset margin */
   font-size: 16px;
   position: fixed;
-  margin-top: -840px;
-  margin-left: -60px;
-  background-color: #007BFF;
+  margin-top: -816px;
+  margin-left: -37px;
+  background-color: #fd7e14;
   border: 2px solid black;
   border-radius: 10px;
-  width: 24%;
+  width: 21%;
   padding: 5px 10px;
   justify-content: center;
   text-align: center;
