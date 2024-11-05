@@ -1,42 +1,137 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Navbar.css';
+import React, { useState } from "react";
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemIcon, ListItemText, Box, CssBaseline, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import HomeIcon from "@mui/icons-material/Home";
+import InfoIcon from "@mui/icons-material/Info";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
+import BatchPredictionIcon from "@mui/icons-material/BatchPrediction";
+import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import Terminal from "./components/Terminal"; // Import the Terminal component
+import Status from "./components/statustable";
+const drawerWidth = 180;
+const primaryColor = "#123462"; // Define your primary color
+const rightSidebarWidth = 428; // Width for the right sidebar
 
-const Navbar = () => {
-  const navigate = useNavigate();
+export default function SidebarNavbar() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize navigation
 
-  const handleNavigation = (event) => {
-    const selectedValue = event.target.value;
-    // Navigate to the selected page
-    if (selectedValue) {
-      navigate(selectedValue);
-    }
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+  // Navigation functions
+  const handleNavigate = (path) => {
+    navigate(path);
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">
-        <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1721754287/left_xfp4qb.png" alt="Logo" />
-        <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1721739306/smartcity_jgrecd.png" alt="Logo" />
-      </div>
-      <div className="navbar-title">
-      Node Simulator 
-      </div>
-      <div className="navbar-dropdown">
-        <select onChange={handleNavigation} defaultValue="">
-          <option value="/" disabled>Select Page</option>
-          <option value="/Node-Simultor">Homepage</option>
-          <option value="/Node-Simultor/vertical">Vertical</option>
-          <option value="/Node-Simultor/parameter">Parameter</option>
-          <option value="/Node-Simultor/node">Node</option>
-          <option value="/Node-Simultor/platform">Platforms</option>
-          <option value="/Node-Simultor/Predefinedconfigurations">Predefined Configurations</option>
-          <option value="/Node-Simultor/Historystatus">History</option>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
 
-        </select>
-      </div>
-    </nav>
+      {/* Navbar */}
+      <AppBar
+        position="fixed"
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: primaryColor, // Change navbar background color
+        }}
+      >
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          {/* Left Side: Hamburger + Logo */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton color="inherit" edge="start" onClick={toggleSidebar} sx={{ mr: 1 }}>
+              <MenuIcon />
+            </IconButton>
+            <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729675203/IMG_4638_1_hx3bzm.png" alt="Logo" style={{ height: 60, marginRight: 10 }} />
+          </Box>
+
+          {/* Center Title */}
+          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
+          Node Simulator
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      {/* Left Sidebar Drawer */}
+      <Drawer
+        variant="permanent"
+        open={isSidebarOpen}
+        sx={{
+          width: isSidebarOpen ? drawerWidth : 60,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: isSidebarOpen ? drawerWidth : 60,
+            boxSizing: "border-box",
+            backgroundColor: "#FFFFFF",
+            transition: "width 0.3s",
+          },
+        }}
+      >
+        <Toolbar />
+        <List>
+          <ListItem button onClick={() => handleNavigate("/Node-Simultor")}>
+            <ListItemIcon>
+              <HomeIcon sx={{ color: "#707070" }} />
+            </ListItemIcon>
+            {isSidebarOpen && <ListItemText primary="Home" sx={{ color: "#707070" }} />}
+          </ListItem>
+
+          <ListItem button onClick={() => handleNavigate("/Node-Simultor/Addvertical")}>
+            <ListItemIcon>
+              <AutoAwesomeMotionIcon sx={{ color: "#707070" }} />
+            </ListItemIcon>
+            {isSidebarOpen && <ListItemText primary="Add vertical" sx={{ color: "#707070" }} />}
+          </ListItem>
+
+          <ListItem button onClick={() => handleNavigate("/Node-Simultor/node")}>
+            <ListItemIcon>
+              <InfoIcon sx={{ color: "#707070" }} />
+            </ListItemIcon>
+            {isSidebarOpen && <ListItemText primary="Platform" sx={{ color: "#707070" }} />}
+          </ListItem>
+
+          <ListItem button onClick={() => handleNavigate("/Node-Simultor/Predefinedconfigurations")}>
+            <ListItemIcon>
+              <BatchPredictionIcon sx={{ color: "#707070" }} />
+            </ListItemIcon>
+            {isSidebarOpen && <ListItemText primary="Predefined" sx={{ color: "#707070" }} />}
+          </ListItem>
+
+          <ListItem button onClick={() => handleNavigate("/Node-Simultor/Historystatus")}>
+            <ListItemIcon>
+              <HistoryEduIcon sx={{ color: "#707070" }} />
+            </ListItemIcon>
+            {isSidebarOpen && <ListItemText primary="Historystatus" sx={{ color: "#707070" }} />}
+          </ListItem>
+        </List>
+      </Drawer>
+
+      {/* Right Sidebar Drawer (Always Open) */}
+      {/* <Drawer
+        variant="permanent"
+        anchor="right"
+        sx={{
+          width: rightSidebarWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: rightSidebarWidth,
+            boxSizing: "border-box",
+            backgroundColor: "#F5F5F5",
+          },
+        }}
+      >
+        <Toolbar />
+        <List>
+          <ListItem>
+            <Status />
+          </ListItem>
+
+          <ListItem>
+            <Terminal />
+          </ListItem>
+        </List>
+      </Drawer> */}
+    </Box>
   );
 }
-
-export default Navbar;

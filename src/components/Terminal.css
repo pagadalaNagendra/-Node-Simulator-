@@ -7,19 +7,21 @@
   background-color: #f4f4f4;
 }
 pre {
-  width: 100%; /* Set the desired width */
-  max-width: 600px; /* Adjust this value as needed */
+  width: 130%; /* Set the desired width */
+  max-width: 1032px; /* Adjust this value as needed */
   background-color: #333;
   color: #fff;
-  margin-left: -20px;
   padding: 25px;
   border-radius: 5px;
-  height: 380px;
+  height: 200px;
   overflow-y: auto; /* Enable vertical scrolling */
   overflow-x: auto;
   font-size: 14px;
   white-space: pre-wrap; /* Wrap text within the element */
   word-wrap: break-word; /* Break long words to fit */
+  margin-top: -70px;
+  margin-left: -30px;
+  position: fixed;
 }
 
 /* Add styles for the download button */
@@ -30,7 +32,7 @@ pre {
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
-  margin-top: -120pxpx;
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,20 +40,22 @@ pre {
 }
 
 /* Style the button text */
-.button-text {
-  margin: -10px; /* Reset margin */
-  font-size: 16px;
-  position: fixed;
-  margin-top: -840px;
-  margin-left: -60px;
-  background-color: #007BFF;
-  border: 2px solid black;
-  border-radius: 10px;
-  width: 24%;
-  padding: 5px 10px;
-  justify-content: center;
-  text-align: center;
-}
+
+  .button-text {
+    font-size: 16px;
+    position: fixed;
+    margin-top: -497px;
+    margin-left: 279px;
+    background-color: #fd7e14;
+    border: 2px solid black;
+    border-radius: 10px;
+    position: fixed;
+    width: 21%;
+    padding: 5px 10px;
+    justify-content: center;
+    text-align: center;
+  }
+
 
 /* Add some spacing between the text and the icon */
 .download-icon {

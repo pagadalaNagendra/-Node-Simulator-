@@ -5,6 +5,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNetworkWired } from "@fortawesome/free-solid-svg-icons";
 import Terminal from "./Terminal"; // Import the Terminal component
 import Status from "./statustable";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useNavigate } from "react-router-dom";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  TextField,
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+  Button,
+  Collapse,
+  Typography,
+  Box,
+  Grid,
+  Grid2,
+} from "@mui/material";
 const ParameterCard = ({ parameter, onUpdate }) => {
   const [minValue, setMinValue] = useState(parameter.min_value);
   const [maxValue, setMaxValue] = useState(parameter.max_value);
@@ -30,8 +56,6 @@ const ParameterCard = ({ parameter, onUpdate }) => {
   );
 };
 
-
-
 const Platform = () => {
   const [platforms, setPlatforms] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState("");
@@ -43,8 +67,10 @@ const Platform = () => {
   const [rangeEnd, setRangeEnd] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [fetchedData, setFetchedData] = useState([]);
-
-  // Fetch unique platforms
+  const [expandedNodes, setExpandedNodes] = useState({});
+  const [selectAll, setSelectAll] = useState(false);
+  const [selectedNegativeAction, setSelectedNegativeAction] = useState(""); // Fetch unique platforms
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(`${config.backendAPI}/nodes?skip=0&limit=1000`)
       .then((response) => response.json())
@@ -107,8 +133,6 @@ const Platform = () => {
     setPlatformData([]);
   };
 
-  
-
   const handleNodeSelect = (event) => {
     const selectedValue = event.target.value;
     if (selectedValue === "selectAll") {
@@ -129,6 +153,34 @@ const Platform = () => {
     } else {
       setSelectedNodes([...selectedNodes, nodeId]);
     }
+  };
+
+  const handleViewDetails = (nodeId) => {
+    setExpandedNodes((prev) => ({
+      ...prev,
+      [nodeId]: !prev[nodeId], // Toggle expanded state for the selected node
+    }));
+  };
+
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedNodes([]);
+    } else {
+      const allNodeIds = platformData.map((node) => node.node_id);
+      setSelectedNodes(allNodeIds);
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const handleSelectNode = (nodeId) => {
+    setSelectedNodes((prev) => (prev.includes(nodeId) ? prev.filter((id) => id !== nodeId) : [...prev, nodeId]));
+  };
+
+  const handleToggle = (nodeId) => {
+    setExpandedNodes((prev) => ({
+      ...prev,
+      [nodeId]: !prev[nodeId],
+    }));
   };
 
   const handleRangeChange = (event) => {
@@ -255,106 +307,215 @@ const Platform = () => {
       )
     );
   };
+  const handleNegativeActionSelect = (event) => {
+    const action = event.target.value;
+    setSelectedNegativeAction(action);
 
+    // Navigate based on the selected action
+    if (action) {
+      navigate(action);
+    }
+  };
   return (
     <div className="homepage">
-      {/* Left Sidebar */}
-      <div className="left-sidebar">
-        <h1 className="nodeselect">
-          <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729231943/block-removebg-preview_eeb1wy.png" alt="Platform Icon" className="Platform-icon-icon" />
-          Select Platform
-        </h1>
-        <select className="select-spacing" value={selectedPlatform} onChange={handlePlatformSelect}>
-          <option value="">Select Platform</option>
-          {platforms.map((platform, index) => (
-            <option key={index} value={platform}>
-              {platform}
-            </option>
-          ))}
-        </select>
-
-        {platformData.length > 0 && (
+      <div className="left">
+        {/* {platformData.length > 0 && (
           <>
-            <h2 className="nodeselect">
-              <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729232379/connection-removebg-preview_uhryhg.png" alt="Nodes Icon" className="Platform-icon-icons" />
-              Select Nodes
-            </h2>
-            <select className="select-spacing" value={selectedNodes.length === platformData.length ? "selectAll" : selectedNodes[0]} onChange={handleNodeSelect}>
-              <option value="">Select Node</option>
-              <option value="selectAll">Select All Nodes</option>
-            </select>
-
-            <h2 className="nodeselect">
-              <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729232814/manual_6672157-removebg-preview_hds2la.png" alt="Manual Selection Icon" className="Platform-icon-iconss" />
-              Manual selection
-            </h2>
-            <select className="select-spacing" value={selectedName} onChange={handleNameSelect}>
-              <option value="">Select Name</option>
-              {names.map((name) => (
-                <option key={name.id} value={name.name}>
-                  {name.name}
-                </option>
-              ))}
-            </select>
-
-            <h2 className="nodeselect">
-              <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729232152/radar-removebg-preview_l25o62.png" alt="Range Icon" className="Platform-icon-icon" />
-              Select Nodes by Range
-            </h2>
-            <div className="range-selection">
-              <input type="number" name="rangeStart" value={rangeStart} onChange={handleRangeChange} placeholder="From (start)" min="1" />
-              <input type="number" name="rangeEnd" value={rangeEnd} onChange={handleRangeChange} placeholder="To (end)" min="1" />
-            </div>
-            <button className="rangenodebtn" onClick={handleApplyRange}>
-              Apply Range
-            </button>
-
             <button className="startstopbtn" onClick={handleStartStopToggle}>
               {isRunning ? "Stop" : "Start"}
             </button>
           </>
-        )}
+        )} */}
       </div>
       {/* Main Content */}
-      <div class="main-content">
-        <div className="card-container">
-          {platformData.length > 0 ? (
-            platformData.map((node, index) => (
-              <div key={node.node_id} className="card">
-                <span className="node-number">#{index + 1}</span>
-                <input type="checkbox" checked={selectedNodes.includes(node.node_id)} onChange={() => handleCheckboxChange(node.node_id)} className="node-checkbox" />
-                <p>Node ID: {node.node_id}</p>
-                <p>Frequency: {node.frequency} </p>
-                <p>Platform: {node.platform}</p>
-                <p>Protocol: {node.protocol}</p>
+      <div className="main-content">
+        <Grid item xs={12} sm={4}>
+          <FormControl fullWidth>
+            <InputLabel>Modes</InputLabel>
+            <Select value={selectedNegativeAction} onChange={handleNegativeActionSelect}>
+              <MenuItem value="">Select Action</MenuItem>
+              <MenuItem value="/Node-Simultor">Single Stimulation</MenuItem>
+              <MenuItem value="/Node-Simultor/platform">Multi Stimulation</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} sm={4}>
+            <FormControl fullWidth sx={{ mt: 2 }}>
+              <InputLabel>Select Platform</InputLabel>
+              <Select value={selectedPlatform} onChange={handlePlatformSelect}>
+                <MenuItem value="">Select Platform</MenuItem>
+                {platforms.map((platform, index) => (
+                  <MenuItem key={index} value={platform}>
+                    {platform}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
 
-                {/* Updated Conditional Check for 'parameter' */}
-                {node.parameter && Array.isArray(node.parameter) && node.parameter.length > 0 ? (
-                  <div className="parameter-list">
-                    {node.parameter.map((parameter) => (
-                      <ParameterCard key={parameter.id} parameter={parameter} onUpdate={handleParameterUpdate} />
-                    ))}
-                  </div>
+          <Grid item xs={12} sm={4}>
+            <FormControl fullWidth sx={{ mt: 2 }}>
+              {" "}
+              {/* Adjust mt value as needed */}
+              <InputLabel>Select Name</InputLabel>
+              <Select value={selectedName} onChange={handleNameSelect}>
+                <MenuItem value="">Select Name</MenuItem>
+                {names.map((name) => (
+                  <MenuItem key={name.id} value={name.name}>
+                    {name.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} sm={4} fullWidth sx={{ mt: 2 }}>
+            <Grid container spacing={1} alignItems="center">
+              <Grid item xs={5}>
+                <TextField type="number" name="rangeStart" value={rangeStart} onChange={handleRangeChange} placeholder="From (start)" inputProps={{ min: 1 }} fullWidth />
+              </Grid>
+              <Grid item xs={5}>
+                <TextField type="number" name="rangeEnd" value={rangeEnd} onChange={handleRangeChange} placeholder="To (end)" inputProps={{ min: 1 }} fullWidth />
+              </Grid>
+              <Grid item xs={2} textAlign="right">
+                <IconButton onClick={handleApplyRange} color="primary">
+                  <CheckCircleIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Box sx={{ mt: 2 }}>
+          <TableContainer
+            component={Paper}
+            sx={{
+              maxHeight: 450,
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                display: "none", // Hide scrollbar for WebKit browsers (Chrome, Safari)
+              },
+              scrollbarWidth: "none", // Hide scrollbar for Firefox
+            }}
+          >
+            <Table className="node-table">
+              <TableHead>
+                <TableRow>
+                  <TableCell padding="checkbox">
+                    <Checkbox checked={selectAll} onChange={handleSelectAll} />
+                  </TableCell>
+                  <TableCell>Node ID</TableCell>
+                  <TableCell>Platform</TableCell>
+                  <TableCell>view details</TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {platformData.length > 0 ? (
+                  platformData.map((node) => (
+                    <React.Fragment key={node.node_id}>
+                      <TableRow>
+                        <TableCell padding="checkbox">
+                          <Checkbox checked={selectedNodes.includes(node.node_id)} onChange={() => handleSelectNode(node.node_id)} />
+                        </TableCell>
+                        <TableCell>{node.node_id}</TableCell>
+                        <TableCell>{node.platform}</TableCell>
+                        <TableCell>
+                          <Box
+                            onClick={() => handleToggle(node.node_id)}
+                            sx={{
+                              padding: "2px 8px",
+                              backgroundColor: "#1976d2",
+                              color: "#fff",
+                              borderRadius: "4px",
+                              cursor: "pointer",
+                              textAlign: "center",
+                              "&:hover": {
+                                backgroundColor: "#1565c0",
+                              },
+                            }}
+                          >
+                            {expandedNodes[node.node_id] ? <Visibility sx={{ verticalAlign: "middle", marginRight: 1 }} /> : <VisibilityOff  sx={{ verticalAlign: "middle", marginRight: 1 }} />}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+
+                      <TableRow>
+                        <TableCell colSpan={4} style={{ paddingBottom: 0, paddingTop: 0 }}>
+                          <Collapse in={expandedNodes[node.node_id]} timeout="auto" unmountOnExit>
+                            <Box margin={1}>
+                              <Typography variant="subtitle1" gutterBottom>
+                                <strong>Frequency:</strong> {node.frequency}
+                              </Typography>
+                              <Typography variant="subtitle1" gutterBottom>
+                                <strong>Protocol:</strong> {node.protocol}
+                              </Typography>
+
+                              {node.parameter && Array.isArray(node.parameter) && node.parameter.length > 0 ? (
+                                <div className="parameter-list">
+                                  <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+                                    Parameters:
+                                  </Typography>
+                                  {node.parameter.map((parameter, i) => (
+                                    <Box
+                                      key={i}
+                                      className="parameter-item"
+                                      sx={{
+                                        padding: 2,
+                                        marginBottom: 2,
+                                        border: "1px solid #ccc",
+                                        borderRadius: "8px",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: 1,
+                                        backgroundColor: "#f9f9f9",
+                                      }}
+                                    >
+                                      <Typography variant="body1" sx={{ fontSize: "1.1rem", fontWeight: 500 }}>
+                                        {parameter.min}
+                                      </Typography>
+                                      <Typography variant="body1" sx={{ fontSize: "1.1rem", fontWeight: 500 }}>
+                                        {parameter.max}
+                                      </Typography>
+                                      <ParameterCard parameter={parameter} onUpdate={handleParameterUpdate} />
+                                    </Box>
+                                  ))}
+                                </div>
+                              ) : (
+                                <Typography>No parameters available for this node.</Typography>
+                              )}
+                            </Box>
+                          </Collapse>
+                        </TableCell>
+                      </TableRow>
+                    </React.Fragment>
+                  ))
                 ) : (
-                  <p>No parameters available for this node</p>
+                  <TableRow>
+                    <TableCell colSpan={4} align="center">
+                      No platform data available.
+                    </TableCell>
+                  </TableRow>
                 )}
-              </div>
-            ))
-          ) : (
-            <p>No platform data available.</p>
-          )}
-        </div>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+        {platformData.length > 0 && (
+          <div className="button-container" style={{ marginTop: "16px", textAlign: "right" }}>
+            <button className="startstopbtn" onClick={handleStartStopToggle}>
+              {isRunning ? "Stop" : "Start"}
+            </button>
+            <Terminal />
+          </div>
+        )}
       </div>
-
       {/* Right Sidebar */}
-
       <div className="right-sidebar">
         <div className="table-container">
-          {/* <DataTable data={fetchedData} isRunning={isRunning} /> */}
           <Status />
         </div>
-
-        <Terminal />
+        {/* <Terminal /> */}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import Historystatus from './components/Historystatus';
 import AlertPage from './components/AlertPage'; 
 import './styles.css';
 import Platform from './components/platform';
+import Addvertical from './components/Addvertical';
 import BulkPage from './components/BulkPage';
 import Predefinedconfigurations from './components/Predefinedconfigurations';
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/Node-Simultor/platform" element={<Platform />} />
           <Route path="/Node-Simultor/Predefinedconfigurations" element={<Predefinedconfigurations/>} />
           <Route path="/Node-Simultor/Historystatus" element={<Historystatus/>} />
+          <Route path="/Node-Simultor/Addvertical" element={<Addvertical/>} />
           {/* <Route Path="/Node-simulator/BulkPage" element={<BulkPage />} /> */}
           <Route path="/Node-Simultor/BulkPage" element={<BulkPage />} />
           <Route path="/Node-Simultor/AlertPage" element={<AlertPage />} />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Homepage.css";
+import { Select, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button, Typography, Paper, Grid } from "@mui/material";
+import "./Homepage.css"; // Import your styles
 import config from "../config";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSitemap, faNetworkWired } from "@fortawesome/free-solid-svg-icons";
 import Terminal from "./Terminal"; // Import the Terminal component
 import Status from "./statustable";
+import { useNavigate } from "react-router-dom";
 
 const NodeSelector = () => {
   const [nodes, setNodes] = useState([]);
@@ -15,15 +15,11 @@ const NodeSelector = () => {
   const [parameters, setParameters] = useState([]);
   const [verticals, setVerticals] = useState([]);
   const [selectedVertical, setSelectedVertical] = useState("");
-  const [terminalReloadKey, setTerminalReloadKey] = useState(0); // State for reloading Terminal
-  const [nodeCount, setNodeCount] = useState(0);
-  const [verticalCount, setVerticalCount] = useState(0);
-  const [uniquePlatforms, setUniquePlatforms] = useState([]);
-  const [platformCount, setPlatformCount] = useState(0);
-  const [uniqueServices, setUniqueServices] = useState([]);
-  const [serviceCount, setServiceCount] = useState(0);
+  const [terminalReloadKey, setTerminalReloadKey] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showParameters, setShowParameters] = useState(false); // New state for parameter visibility
+  const navigate = useNavigate();
 
   // Fetch verticals on component mount
   useEffect(() => {
@@ -32,9 +28,8 @@ const NodeSelector = () => {
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           setVerticals(data);
-          setSelectedVertical(data[0].id); // Automatically select the first vertical
+          setSelectedVertical(data[0].id);
         } else {
-          console.error("Unexpected data format:", data);
           setVerticals([]);
         }
       })
@@ -44,79 +39,6 @@ const NodeSelector = () => {
       });
   }, []);
 
-
-//these fetch method for nodes count 
-  useEffect(() => {
-    fetch("http://localhost:8000/nodes/?skip=0&limit=1000?skip=0&limit=1000")
-      .then((response) => response.json())
-      .then((data) => setNodeCount(data.length))
-      .catch((error) => console.error("Error fetching node data:", error));
-  }, []);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/verticals/')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch vertical count');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setVerticalCount(data.length);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    const fetchPlatforms = async () => {
-        try {
-            const response = await fetch('http://localhost:8000/nodes/?skip=0&limit=1000');            
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            const uniquePlatformsSet = [...new Set(data.map(node => node.platform))];
-            setUniquePlatforms(uniquePlatformsSet);
-            setPlatformCount(uniquePlatformsSet.length);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    fetchPlatforms();
-}, []); 
-
-useEffect(() => {
-  const fetchServices = async () => {
-      try {
-          const response = await fetch('http://localhost:8000/nodes/?skip=0&limit=1000');
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          const data = await response.json();
-          const uniqueServicesSet = [...new Set(data
-              .filter(node => node.services === "start")
-              .map(node => node.services))
-          ];
-          setUniqueServices(uniqueServicesSet);
-          setServiceCount(uniqueServicesSet.length);
-      } catch (error) {
-          setError(error.message);
-      } finally {
-          setLoading(false);
-      }
-  };
-
-  fetchServices();
-}, []); 
- 
-
   // Fetch filtered nodes when selected vertical changes
   useEffect(() => {
     if (selectedVertical) {
@@ -125,7 +47,7 @@ useEffect(() => {
         .then((data) => {
           if (Array.isArray(data) && data.length > 0) {
             setFilteredNodes(data);
-            setSelectedNodeId(data[0].node_id); // Automatically select the first node
+            setSelectedNodeId(data[0].node_id);
           } else {
             alert("Node Ids not found");
             setFilteredNodes([]);
@@ -159,21 +81,8 @@ useEffect(() => {
         if (selectedNode.frequency) {
           setFrequency(secondsToHMS(selectedNode.frequency));
         }
-        setParameters(selectedNode.parameter || []); // Use the parameter field from the selected node
-        // Start terminal data streaming when node is selected
-        const eventSource = new EventSource(`http://localhost:8000/services/events/`);
-        eventSource.onmessage = (event) => {
-          setTerminalReloadKey((prevData) => prevData + event.data + "\n");
-        };
-
-        eventSource.onerror = (error) => {
-          console.error("EventSource failed:", error);
-          eventSource.close();
-        };
-
-        return () => {
-          eventSource.close();
-        };
+        setParameters(selectedNode.parameter || []);
+        setShowParameters(false); // Reset visibility when node is changed
       }
     } else {
       setNodeDetails(null);
@@ -219,8 +128,7 @@ useEffect(() => {
           protocol: nodeDetails.protocol,
         },
       ];
-      console.log(payload);
-      
+
       fetch(`http://127.0.0.1:8000/services/start`, {
         method: "PUT",
         headers: {
@@ -230,11 +138,7 @@ useEffect(() => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Start response:", data);
-          setNodeDetails((prevDetails) => ({
-            ...prevDetails,
-            status: "start",
-          }));
+          setNodeDetails((prevDetails) => ({ ...prevDetails, status: "start" }));
           setTerminalReloadKey((prevKey) => prevKey + 1);
         })
         .catch((error) => console.error("Error starting service:", error));
@@ -244,11 +148,7 @@ useEffect(() => {
   const handleStop = (event) => {
     event.preventDefault();
     if (selectedNodeId) {
-      const payload = [
-        {
-          node_id: selectedNodeId,
-        },
-      ];
+      const payload = [{ node_id: selectedNodeId }];
 
       fetch(`http://127.0.0.1:8000/services/stop`, {
         method: "PUT",
@@ -259,11 +159,7 @@ useEffect(() => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Stop response:", data);
-          setNodeDetails((prevDetails) => ({
-            ...prevDetails,
-            status: "stop",
-          }));
+          setNodeDetails((prevDetails) => ({ ...prevDetails, status: "stop" }));
         })
         .catch((error) => console.error("Error stopping service:", error));
     }
@@ -276,135 +172,143 @@ useEffect(() => {
   const handleParameterChange = (index, field, value) => {
     setParameters((prevParams) => {
       const newParams = [...prevParams];
-      newParams[index][field] = value; // Update specific field
+      newParams[index][field] = value;
       return newParams;
     });
   };
 
+  const handleToggleParameters = () => {
+    setShowParameters((prev) => !prev); // Toggle parameter visibility
+  };
+
+  const handleNavigate = (event) => {
+    const selectedPage = event.target.value;
+    if (selectedPage) {
+      navigate(`/${selectedPage}`); // Navigate to the selected page
+    }
+  };
+
   return (
-    <div className="homepage">
-      <div className="left-sidebar">
-        <h1 className="nodeselect">
-          <FontAwesomeIcon icon={faSitemap} /> Select Vertical
-        </h1>
-        <select value={selectedVertical} onChange={handleVerticalSelect}>
-          <option value="">Select Vertical</option>
-          {verticals.map((vertical) => (
-            <option key={vertical.id} value={vertical.id}>
-              {vertical.name}
-            </option>
-          ))}
-        </select>
+    <div className="homepage-single">
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid item xs={12} md={6}>
+          {nodeDetails && (
+            <div className="node-details-single">
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <Select
+                    onChange={handleNavigate}
+                    value="" // Set this to control the default selected value
+                    fullWidth
+                    displayEmpty
+                  >
+                    <MenuItem value="">
+                      <div style={{ fontStyle: "normal" }}>Select Mode</div>
+                    </MenuItem>
+                    <MenuItem value="Node-Simultor">Single Stimulation</MenuItem>
+                    <MenuItem value="Node-Simultor/platform">Multi Stimulation</MenuItem>
+                  </Select>
+                </Grid>
 
-        <h1 className="nodeselect">
-          <FontAwesomeIcon icon={faNetworkWired} /> Select Node
-        </h1>
-        <select value={selectedNodeId} onChange={handleNodeSelect} disabled={filteredNodes.length === 0}>
-          <option value="">Select Node ID</option>
-          {filteredNodes.map((node) => (
-            <option key={node.node_id} value={node.node_id}>
-              {node.node_id}
-            </option>
-          ))}
-        </select>
-      </div>
+                <Grid item xs={4}>
+                  <Select value={selectedVertical} onChange={handleVerticalSelect} fullWidth displayEmpty>
+                    <MenuItem value="">
+                      <em>Select Vertical</em>
+                    </MenuItem>
+                    {verticals.map((vertical) => (
+                      <MenuItem key={vertical.id} value={vertical.id}>
+                        {vertical.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Grid>
+                <Grid item xs={4}>
+                  <Select value={selectedNodeId} onChange={handleNodeSelect} fullWidth disabled={filteredNodes.length === 0} displayEmpty>
+                    <MenuItem value="">
+                      <em>Select Node ID</em>
+                    </MenuItem>
+                    {filteredNodes.map((node) => (
+                      <MenuItem key={node.node_id} value={node.node_id}>
+                        {node.node_id}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Grid>
+              </Grid>
 
-      <div className="contentss">
-        <div class="home-image-container">
-          <div className="home-node-item">
-            <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729252778/domains.f8dcff7786020da7f6f3_ye1prf.png" alt="Range Icon" className="home-icon-icon" />
-            <div className="node-details">
-              <p className="home-nodecount">{verticalCount}</p>
-              <p className="home-nodetitle">Domains</p>
-            </div>
-          </div>
-          <div className="home-node-item">
-            <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729252869/sensors.5b52755804301a7ece3e_sbdtnh.png" alt="Range Icon" className="home-icon-icon" />
-            <div className="node-details">
-              <p className="home-nodecount">{nodeCount}</p>
-              <p className="home-nodetitle">Nodes</p>
-            </div>
-          </div>
-          <div className="home-node-item">
-            <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729252981/nodes.615bd1b0b66e63b83202_aelqwa.png" alt="Range Icon" className="home-icon-icon" />
-            <div className="node-details">
-              <p className="home-nodecount">{platformCount}</p>
-              <p className="home-nodetitle">Platforms</p>
-            </div>
-          </div>
-          <div className="home-node-item">
-            <img src="https://res.cloudinary.com/dxoq1rrh4/image/upload/v1729253184/pngtree-start-button-rounded-futuristic-hologram-png-image_2257337-removebg-preview_o9wcnh.png" alt="Range Icon" className="home-icon-icon" />
-            <div className="node-details">
-              <p className="home-nodecount">{serviceCount}</p>
-              <p className="home-nodetitle">Services(start)</p>
-            </div>
-          </div>
-        </div>
-
-        {nodeDetails && (
-          <div className="node-details">
-            <h2>Node Details</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Property</th>
-                  <th>Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Node ID</td>
-                  <td>{nodeDetails.node_id}</td>
-                </tr>
-                <tr>
-                  <td>Platform</td>
-                  <td>{nodeDetails.platform}</td>
-                </tr>
-                <tr>
-                  <td>Protocol</td>
-                  <td>{nodeDetails.protocol}</td>
-                </tr>
-                <tr>
-                  <td>Frequency</td>
-                  <td>
-                    <input type="text" value={frequency} onChange={handleFrequencyChange} placeholder="HH:MM:SS" />
-                  </td>
-                </tr>
-                <div className="parameters-container">
-                  {parameters.map((param, index) => (
-                    <div className="parameter-card" key={index}>
-                      <h3>{param.name}</h3>
-                      <div className="input-group">
-                        <label>Min:</label>
-                        <input type="number" value={param.min_value} onChange={(e) => handleParameterChange(index, "min_value", e.target.value)} placeholder="Min" />
+              <Typography variant="h5"> </Typography>
+              <br></br>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Node ID</TableCell>
+                      <TableCell>{nodeDetails.node_id}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Platform</TableCell>
+                      <TableCell>{nodeDetails.platform}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Protocol</TableCell>
+                      <TableCell>{nodeDetails.protocol}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Frequency</TableCell>
+                      <TableCell>
+                        <TextField type="text" value={frequency} onChange={handleFrequencyChange} placeholder="HH:MM:SS" fullWidth />
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={2}>
+                        <Button variant="outlined" onClick={handleToggleParameters}>
+                          {showParameters ? "Hide Parameters" : "View Parameters"}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                    {showParameters && (
+                      <div className="homepage-parameters-details-node">
+                        {parameters.map((param, index) => (
+                          <TableRow key={index}>
+                            <TableCell>{param.name}</TableCell>
+                            <TableCell>
+                              <Grid container spacing={1}>
+                                <Grid item xs={12}>
+                                  <TextField type="number" value={param.min_value} onChange={(e) => handleParameterChange(index, "min_value", e.target.value)} placeholder="Min" fullWidth />
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <TextField type="number" value={param.max_value} onChange={(e) => handleParameterChange(index, "max_value", e.target.value)} placeholder="Max" fullWidth />
+                                </Grid>
+                              </Grid>
+                            </TableCell>
+                          </TableRow>
+                        ))}
                       </div>
-                      <div className="input-group">
-                        <label>Max:</label>
-                        <input type="number" value={param.max_value} onChange={(e) => handleParameterChange(index, "max_value", e.target.value)} placeholder="Max" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </tbody>
-            </table>
-            {nodeDetails.status === "start" ? (
-              <button className="servicesstart" onClick={handleStop}>
-                Stop
-              </button>
-            ) : (
-              <button className="servicesstart" onClick={handleStart}>
-                Start
-              </button>
-            )}
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <br></br>
+              <Button variant="contained" color={nodeDetails.status === "start" ? "secondary" : "primary"} onClick={nodeDetails.status === "start" ? handleStop : handleStart}>
+                {nodeDetails.status === "start" ? "Stop" : "Start"}
+              </Button>
+              <div className="terminal-home-code">
+                <Terminal />
+              </div>
+            </div>
+          )}
+        </Grid>
+
+        <Grid item xs={12} md={6} className="right-sidebar">
+          <div className="right-sidebar">
+            <div className="table-container">
+              <Status />
+            </div>
+
+            {/* <Terminal /> */}
           </div>
-        )}
-      </div>
-      <div className="right-sidebar">
-        <div className="table-container">
-          <Status />
-        </div>
-        <Terminal reloadKey={terminalReloadKey} />
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

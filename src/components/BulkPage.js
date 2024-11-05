@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2"; // Import SweetAlert
-import "./node.css";
+// import "./node.css";
 import config from "../config";
 
 const FormPage3 = () => {

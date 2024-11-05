@@ -1,6 +1,6 @@
 
 
-.terminal {
+/* .terminal {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -11,9 +11,9 @@
     font-family: 'Courier New', Courier, monospace;
     border-radius: 8px 0 0 0;
     overflow: hidden; 
-}
+} */
 
-.terminal-header {
+/* .terminal-header {
     background-color: #2d2d2d;
     padding: 8px;
     color: #ccc;
@@ -22,24 +22,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+} */
 
-.terminal-header .buttons {
+/* .terminal-header .buttons {
     display: flex;
     gap: 6px;
-}
+} */
 
-.terminal-header .button {
+/* .terminal-header .button {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-}
+} */
 
-.terminal-header .button.red { background-color: #f44; }
+/* .terminal-header .button.red { background-color: #f44; }
 .terminal-header .button.yellow { background-color: #ffba00; }
-.terminal-header .button.green { background-color: #4caf50; }
+.terminal-header .button.green { background-color: #4caf50; } */
 
-.terminal-body {
+/* .terminal-body {
     padding: 10px;
     font-size: 14px;
     line-height: 1.4;
@@ -48,37 +48,37 @@
     height: calc(100% - 36px); 
     overflow-y: auto; 
     overflow-x: hidden; 
-}
+} */
 
-.left-sidebar::-webkit-scrollbar,
+/* .left-sidebar::-webkit-scrollbar,
 .right-sidebar::-webkit-scrollbar,
 .content::-webkit-scrollbar,
 .terminal-body::-webkit-scrollbar {
     width: 8px;
-}
+} */
 
-.left-sidebar::-webkit-scrollbar-thumb,
+/* .left-sidebar::-webkit-scrollbar-thumb,
 .right-sidebar::-webkit-scrollbar-thumb,
 .content::-webkit-scrollbar-thumb,
 .terminal-body::-webkit-scrollbar-thumb {
     background-color: rgb(190, 217, 227);
     border-radius: 8px;
-}
+} */
 
-.left-sidebar::-webkit-scrollbar-thumb:hover,
+/* .left-sidebar::-webkit-scrollbar-thumb:hover,
 .right-sidebar::-webkit-scrollbar-thumb:hover,
 .content::-webkit-scrollbar-thumb:hover,
 .terminal-body::-webkit-scrollbar-thumb:hover {
     background-color: #555;
-}
+} */
 
-.nodeselect {
+/* .nodeselect {
     font-size: 12px;
-}
+} */
 
-* {
+/* * {
     max-width: 100%;
-}
+} */
 body, html {
     margin: 0;
     padding: 0;
@@ -86,11 +86,11 @@ body, html {
     overflow: hidden;
 }
 
-.homepage {
+/* .homepage {
     display: flex;
     height: 100vh;
     width: 100vw;
-}
+} */
 
 @mixin scrollable {
     overflow-y: scroll;
@@ -103,7 +103,7 @@ body, html {
 }
 
 
-.left-sidebar {
+/* .left-sidebar {
     width: 10%;
     background-color: #FFFFFF;
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
@@ -112,40 +112,41 @@ body, html {
     top: 81px;
     bottom: 0;
     @include scrollable;
-}
+} */
 
 
 .right-sidebar {
-    width: 25%;
+    width: 28%;
     background-color: #FFFFFF;
     box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     right: 0;
-    top: 82px;
+    top: 83px;
     bottom: 0;
+    height: inherit;
     display: flex;
     flex-direction: column;
     @include scrollable;
 }
 
 
-.contentss {
-    margin-left: 11%; 
-    margin-right: 15%; 
-    width: calc(100% - 40%); 
-    height: calc(100vh - 82px);
-    padding: 30px;
-    box-sizing: border-box;
-    overflow-y: scroll; 
-    scrollbar-width: none; 
-}
+/* .contentss {
+  margin-left: 13%;
+  margin-right: 15%;
+  width: calc(100% - 40%);
+  height: calc(100vh - 82px);
+  padding: 30px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  scrollbar-width: none;
+} */
 
 
-.contentss::-webkit-scrollbar {
+/* .contentss::-webkit-scrollbar {
     display: none; 
-}
+} */
 
-.terminal {
+/* .terminal {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -156,9 +157,9 @@ body, html {
     font-family: 'Courier New', Courier, monospace;
     border-radius: 8px 0 0 0;
     overflow: hidden;
-}
+} */
 
-.terminal-header {
+/* .terminal-header {
     background-color: #2d2d2d;
     padding: 8px;
     color: #ccc;
@@ -167,24 +168,24 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+} */
 
-.terminal-header .buttons {
+/* .terminal-header .buttons {
     display: flex;
     gap: 6px;
-}
+} */
 
-.terminal-header .button {
+/* .terminal-header .button {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-}
+} */
 
-.terminal-header .button.red { background-color: #f44; }
+/* .terminal-header .button.red { background-color: #f44; }
 .terminal-header .button.yellow { background-color: #ffba00; }
-.terminal-header .button.green { background-color: #4caf50; }
+.terminal-header .button.green { background-color: #4caf50; } */
 
-.terminal-body {
+/* .terminal-body {
     padding: 10px;
     font-size: 14px;
     line-height: 1.4;
@@ -192,7 +193,7 @@ body, html {
     word-wrap: break-word;
     height: calc(100% - 36px);
     @include scrollable;
-}
+} */
 
 .nodeselect {
     font-size: 12px;
@@ -230,61 +231,61 @@ body, html {
     gap: 16px; 
   } */
   
-  
+/*   
   .node-details-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px; 
-}
+} */
 
-.node-details-table th,
+/* .node-details-table th,
 .node-details-table td {
     border: 1px solid #d1d5db; 
     padding: 10px; 
     text-align: left; 
-}
+} */
 
-.node-details-table th {
+/* .node-details-table th {
     background-color: #D4D6DF; 
     font-weight: bold; 
 }
 
 .node-details-table tr:nth-child(even) {
     background-color: #f9f9f9; 
-}
+} */
 
 
-.default-data-table {
+/* .default-data-table {
     margin-bottom: 20px;
   }
-  
-  .default-data-table table {
+   */
+  /* .default-data-table table {
     width: 100%;
     border-collapse: collapse;
-  }
+  } */
   
-  .default-data-table th,
+  /* .default-data-table th,
   .default-data-table td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
   }
-  
-  .default-data-table th {
+   */
+  /* .default-data-table th {
     background-color: #f4f4f4;
-  }
+  } */
   
-  .node-details-table {
+  /* .node-details-table {
     width: 100%;
     border-collapse: collapse;
   }
-  
-  .node-details-table th,
+   */
+  /* .node-details-table th,
   .node-details-table td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
-  }
+  } */
   
   /* .parameter-row {
     display: flex;
@@ -292,13 +293,12 @@ body, html {
     margin-bottom: 10px;
   } */
   
-  .parameter-row input {
+  /* .parameter-row input {
     margin-right: 10px;
-  }
+  } */
   
-.action-button {
+/* .action-button {
   width: 10%;
-  /* margin-left: -40px; */
   z-index: 20;
   position: absolute;
   bottom: 2px;
@@ -308,39 +308,40 @@ body, html {
   justify-content: center;
   border-radius: 25px;
 
-}
-  .terminalhk{
+} */
+  /* .terminalhk{
     justify-content: center;
     text-align: center;
-  }
+  } */
 
   .right-sidebar {
     display: flex;
     flex-direction: column;
     height: 100%;
+    /* margin-top: -30px; */
   }
   
-  .data-table-container {
+  /* .data-table-container {
     margin-bottom: 20px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     overflow: hidden;
-  }
+  } */
   
-  .data-table-container h3 {
+  /* .data-table-container h3 {
     padding: 15px;
     margin: 0;
     background-color: #f8f8f8;
     border-bottom: 1px solid #e0e0e0;
-  }
+  } */
   
-  .data-table {
-    max-height: calc(4 * 53px + 53px); /* 4 rows + header */
+  /* .data-table {
+    max-height: calc(4 * 53px + 53px); 
     overflow-y: auto;
     width: 20px;
-  }
+  } */
   
-  .data-table table {
+  /* .data-table table {
     width: 100%;
     border-collapse: collapse;
   }
@@ -351,14 +352,14 @@ body, html {
     text-align: left;
     border-bottom: 1px solid #e0e0e0;
   }
-  
-  .data-table th {
+   */
+  /* .data-table th {
     background-color: #f8f8f8;
     font-weight: bold;
     position: sticky;
     top: 0;
     z-index: 1;
-  }
+  } */
   
   /* .service-state {
     display: flex;
@@ -433,7 +434,7 @@ body, html {
     background-color: #555;
   }
 
-  .parameters-container {
+  /* .parameters-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
     gap: 20px; 
@@ -441,8 +442,8 @@ body, html {
     margin-left: -20px;
     padding: 20px;
     border-radius: 10px;
-  }
-  
+  } */
+/*   
   .parameter-card {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -453,9 +454,9 @@ body, html {
     flex-direction: column;
     justify-content: space-between;
 
-  }
+  } */
   
-  .input-group {
+  /* .input-group {
     display: flex;
     justify-content: space-between;
     margin-top: 8px;
@@ -465,59 +466,57 @@ body, html {
     margin-right: 8px;
     margin-top: 7px;
     font-size: 20px;
-  }
+  } */
   
-  .servicesstart {
+  /* .servicesstart {
     background-color: #28a745;
-    padding: 8px 16px;
+    padding: 12px 20px; 
     font-size: 16px;
     cursor: pointer;
     color: white;
     border: none;
     border-radius: 4px;
-    margin-top: -65px;
-    transition: background-color 0.3s;
-    justify-content: center;
+    margin-top: 0; 
+    transition: background-color 0.3s ease-in-out;
     text-align: center;
-    width: 10%;
-    position: fixed; /* Absolute positioning to bring it in front */
-    left: 10px;
-    z-index: 1000; /* High z-index to bring it to the front */
-  }
-  
-  .home-image-container {
+    width: 13%; 
+    position: fixed; 
+    bottom: 20px; 
+    left: 10px; 
+    z-index: 1000; 
+} */
+
+/* .servicesstart:hover {
+    background-color: #218838; 
+}
+   */
+  /* .home-image-container {
     display: flex;
-    justify-content: space-between; /* Ensures there is space between images */
-    gap: 10px; /* Adjust the gap value to control the space between images */
+    justify-content: space-between; 
+    gap: 10px; 
   }
-  
-  .home-node-item {
-    background-color: #ECEEF8; /* Light background color */
-    border-radius: 10px; /* Smooth rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    padding: 15px; /* Inner padding for spacing */
-    margin: 10px; /* Space between cards */
-    width: 150px; /* Adjust card width */
+   */
+  /* .home-node-item {
+    background-color: #ECEEF8; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 15px;
+    margin: 10px; 
+    width: 150px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease; /* Hover animation */
+    transition: transform 0.2s ease; 
   }
-  
-  /* Optional hover effect */
-  .home-node-item:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+   */
+  /* .home-node-item:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
-  
-  .home-icon-icon {
-    width: 120px; /* Icon width */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 10px; /* Space between icon and text */
-  }
-  
-  .home-nodecount{
+   */
+ 
+  /* .home-nodecount{
     font-style: oblique;
     color: #007bff;
     font-size: 24px;
@@ -525,8 +524,8 @@ body, html {
     margin-top: -5px;
     text-align: center;
     justify-content: center;
-  }
-  .home-nodetitle{
+  } */
+  /* .home-nodetitle{
     font-style: oblique;
     color: black;
     font-size: 24px;
@@ -534,5 +533,157 @@ body, html {
     text-align: center;
     justify-content: center;
     margin-top: -20px;
+  } */
+
+  @media (max-width: 320px) {
+    .left-sidebar {
+        width: 100%; /* Full width for better usability */
+        padding: 10px; /* Slightly smaller padding */
+        background-color: #ffffff;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px; /* Add space below the sidebar */
+    }
+
+    .nodeselect {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 0.1rem;
   }
+
+.servicesstart {
+  background-color: #28a745;
+  padding: 12px 20px;
+  font-size: 11px;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 0;
+  transition: background-color 0.3s ease-in-out;
+  text-align: center;
+  width: 18%;
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    z-index: 1000;
+}
+.home-image-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.contentss {
+  width: 100%;
+  padding: 10px;
+  margin: 0;
+}
+
+.home-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Add spacing between items */
+}
+
+.home-node-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 34%;
+  padding: 10px;
+}
+
+.home-icon-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
+}
+
+.node-details {
+  margin-top: 5px;
+  width: 20px;
+}
+
+.home-nodecount {
+  font-size: 1.2rem;
+  margin: 16px 24px;
+}
+
+.home-nodetitle {
+  font-size: 1rem;
+}
+
+table {
+  width: 50%; /* Adjust table width to fit screen */
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-left: 59px;
+}
+
+th, td {
+  padding: 8px;
+  font-size: 0.5rem;
+  text-align: left;
+}
+
+.parameters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.parameter-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+}
+.homepage-single {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  padding: 20px; /* Optional padding */
+  box-sizing: border-box; /* Include padding in height calculation */
+  /* margin-top: 10px; */
+}
+
+.table-container {
+  max-width: 800px; /* Set a max width for the table */
+  width: 100%; /* Ensure it uses full width up to max */
+}
+.node-details-single {
+  width: 130%;             /* Optional: Full width of the column */
+  max-width: 70vw;       /* Set a max width for the node details */
+  margin: 0 auto;    
+  margin-left: -300px;     /* Center the node details container */
+}
+
+.homepage-parameters-details-node {
+  max-height: 200px; /* Set a maximum height */
+  overflow-y: scroll; /* Enable vertical scrolling */
+  padding: 10px;     /* Optional padding */
+  border-radius: 4px; /* Optional rounded corners */
   
+}
+
+/* Hide scrollbar */
+.homepage-parameters-details-node {
+  scrollbar-width: none; /* For Firefox */
+}
+
+.homepage-parameters-details-node::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.homepage-node-details-platform{
+  width: 100vw;
+ 
+}
+
